@@ -29,9 +29,22 @@
 		A91B3513300C095800298106 /* BirdMesh MiniUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BirdMesh MiniUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A91B353D300C4EE500298106 /* Exceptions for "BirdMesh Mini" folder in "BirdMesh Mini" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			platformFiltersByRelativePath = {
+				Info.plist = (ios, );
+			};
+			target = A91B34FB300C095500298106 /* BirdMesh Mini */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A91B34FE300C095500298106 /* BirdMesh Mini */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A91B353D300C4EE500298106 /* Exceptions for "BirdMesh Mini" folder in "BirdMesh Mini" target */,
+			);
 			path = "BirdMesh Mini";
 			sourceTree = "<group>";
 		};
