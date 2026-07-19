@@ -151,7 +151,13 @@ struct VideoPicker: UIViewControllerRepresentable {
 
             guard let result = results.first else { return }
 
-            // Lade Video von itemProvider
+            // Lade Video direkt über URL – einfach, zuverlässig, MVP-ready
+            self.loadVideoViaURL(from: result)
+        }
+
+        /// Fallback-Methode: Lade Video direkt über URL
+        /// (weniger zuverlässig, aber nötig für bestimmte Video-Quellen)
+        private func loadVideoViaURL(from result: PHPickerResult) {
             result.itemProvider.loadFileRepresentation(forTypeIdentifier: "public.movie") { url, error in
                 DispatchQueue.main.async {
                     if let error = error {
@@ -164,11 +170,17 @@ struct VideoPicker: UIViewControllerRepresentable {
                         return
                     }
 
-                    // Erstelle AVAsset aus URL
+                    // Erstelle AVAsset und warte auf Metadata
                     let asset = AVAsset(url: url)
-                    self.videoImportService.selectedAsset = asset
-                    self.videoImportService.videoURL = url
-                    self.videoImportService.isLoading = false
+
+                    // Warte auf Video-Metadaten (Timeout 5 Sekunden)
+                    asset.loadValuesAsynchronously(forKeys: ["duration", "tracks"]) {
+                        DispatchQueue.main.async {
+                            self.videoImportService.selectedAsset = asset
+                            self.videoImportService.videoURL = url
+                            self.videoImportService.isLoading = false
+                        }
+                    }
                 }
             }
         }
